@@ -133,6 +133,35 @@ Without any keys, the app still runs end to end: it uses the offline classifier 
 
 Admin console: `/admin`, using the `ADMIN_PASSWORD` from your `.env`.
 
+## 🧑‍⚖️ Jury Evaluation Guide
+
+### Live Demo
+**Deployed URL:** https://civicresolve.onrender.com *(replace with your actual URL)*
+
+### Admin Dashboard Access
+| Field    | Value |
+| -------- | ----- |
+| URL      | `<deployed-url>/admin` |
+| Password | `jewqhfbkwyf` |
+
+### Pre-seeded Demo Complaints (no login needed)
+Track any of these codes at `<deployed-url>/track/<code>`:
+
+| Code       | Issue                                          | Status      |
+| ---------- | ---------------------------------------------- | ----------- |
+| `CR-PSG001` | Exposed live wires at streetlight pole (critical) | In Progress |
+| `CR-PSG005` | Open manhole on Race Course walking track     | Resolved ✅ |
+| `CR-PSG006` | Traffic signal not working at Lakshmi Mills   | Resolved ✅ |
+| `CR-PSG013` | Sewage overflowing into houses at Ukkadam     | Reported 🔴 |
+| `CR-PSG015` | Garbage heap blocking lane near Peelamedu     | Resolved ✅ |
+
+### What to evaluate
+1. **Report a complaint** at `/report` — type a description, optionally add a photo → AI analysis card shows category, priority, impact score, hazards, reasoning
+2. **Admin queue** at `/admin` — priority-ranked complaints, status updates, AI daily briefing button
+3. **City dashboard** at `/dashboard` — interactive map, 14-day trend charts, category and status breakdowns
+4. **Track page** — search by code, see full timeline with before/after resolution photos
+5. **Multilingual** — paste Tamil or Hindi text in the report form; Gemini translates and classifies it
+
 ## ☁️ Deploy (free)
 
 See **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)** for:

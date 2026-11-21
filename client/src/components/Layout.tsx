@@ -19,7 +19,7 @@ export function usePageTitle(title: string) {
 export function BrandMark({ size = 34 }: { size?: number }) {
   return (
     <span className="brand-mark" style={{ width: size, height: size }} aria-hidden="true">
-      <MapPinCheck size={Math.round(size * 0.55)} strokeWidth={2.2} />
+      <MapPinCheck size={Math.round(size * 0.55)} strokeWidth={2.2} color="var(--primary)" />
     </span>
   );
 }
@@ -99,24 +99,26 @@ export function Layout() {
           <div className="row">
             <BrandMark size={26} />
             <span>
-              <strong style={{ color: 'var(--text)' }}>CivicResolve</strong> · AI-assisted civic
-              grievance management
+              <strong style={{ color: '#ffffff' }}>CivicResolve</strong>
+              <span style={{ color: 'rgb(255 255 255 / 55%)', marginLeft: '0.4rem' }}>
+                · Coimbatore City Municipal Corporation · AI-assisted Grievance Portal
+              </span>
             </span>
           </div>
           <nav aria-label="Footer">
             <ul>
               <li>
-                <Link to="/report">Report an issue</Link>
+                <Link to="/report">File a Complaint</Link>
               </li>
               <li>
-                <Link to="/track">Track a complaint</Link>
+                <Link to="/track">Track Status</Link>
               </li>
               <li>
-                <Link to="/dashboard">City dashboard</Link>
+                <Link to="/dashboard">City Dashboard</Link>
               </li>
             </ul>
           </nav>
-          <span className="xs">Powered by Google Gemini · Map data © OpenStreetMap</span>
+          <span className="xs" style={{ color: 'rgb(255 255 255 / 40%)' }}>Powered by Google Gemini · Map © OpenStreetMap / CARTO</span>
         </div>
       </footer>
     </>

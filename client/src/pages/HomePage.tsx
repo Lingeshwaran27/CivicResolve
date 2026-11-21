@@ -91,20 +91,19 @@ export function HomePage() {
               AI triage powered by Google Gemini
             </span>
             <h1 id="hero-title">
-              Fix your city, <span className="accent">one report at a time.</span>
+              Coimbatore Citizen <span className="accent">Grievance Portal</span>
             </h1>
             <p className="lead">
-              Report potholes, garbage, broken streetlights or water leaks in under a minute.
-              CivicResolve understands the problem, judges how urgent it is and sends it straight to
-              the department that can fix it.
+              Report civic issues — potholes, garbage, broken streetlights, water leaks — in English, Tamil or Hindi.
+              Gemini AI reads your complaint, sets priority, and routes it to the right municipal department instantly.
             </p>
             <div className="hero-ctas">
               <Link to="/report" className="btn btn-primary btn-lg">
-                Report an issue
+                File a Complaint
                 <ArrowRight size={18} aria-hidden="true" />
               </Link>
               <Link to="/track" className="btn btn-outline btn-lg">
-                Track a complaint
+                Track Your Complaint
               </Link>
             </div>
             <ul className="hero-points">
@@ -112,7 +111,7 @@ export function HomePage() {
                 <Languages size={16} aria-hidden="true" /> English · தமிழ் · हिन्दी
               </li>
               <li>
-                <MapPin size={16} aria-hidden="true" /> Photo &amp; GPS location
+                <MapPin size={16} aria-hidden="true" /> Photo & GPS location
               </li>
               <li>
                 <ShieldCheck size={16} aria-hidden="true" /> Contact details stay private

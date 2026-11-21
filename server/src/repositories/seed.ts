@@ -354,9 +354,11 @@ const SEED_PHOTOS: Record<string, { report?: string; resolution?: string; note?:
     note: 'Heavy-duty cover installed and the opening sealed.',
   },
   'CR-PSG006': {
+    report: 'psg006-after',
     resolution: 'psg006-after',
     note: 'Signal controller replaced; junction operating normally.',
   },
+  'CR-PSG010': { report: 'psg012-road' },
   'CR-PSG007': { report: 'psg007-dogs' },
   'CR-PSG008': { report: 'psg008-streetlight' },
   'CR-PSG009': { report: 'psg009-stagnant' },
