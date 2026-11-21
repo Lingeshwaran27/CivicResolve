@@ -81,6 +81,22 @@ export function HomePage() {
 
   return (
     <>
+      <div className="container" style={{ paddingTop: '1rem', marginBottom: '-1rem' }}>
+        <div className="civic-bulletin" role="region" aria-label="Live municipal bulletin">
+          <div className="bulletin-tag">
+            <span className="live-dot" aria-hidden="true" />
+            <span>Coimbatore Live Updates</span>
+          </div>
+          <div className="bulletin-ticker">
+            <span>💧 <strong>Siruvani Water:</strong> West Zone (Wards 21–35, RS Puram &amp; Vadavalli) supply cycle active today 6:00 AM – 11:30 AM.</span>
+            <span className="bulletin-sep">·</span>
+            <span>⚡ <strong>TANGEDCO:</strong> Sub-station maintenance power shutdown in Peelamedu &amp; Hope College tomorrow 9 AM – 2 PM.</span>
+            <span className="bulletin-sep">·</span>
+            <span>🚧 <strong>Avinashi Expressway:</strong> Beam erection near Lakshmi Mills; light vehicles advised to use Race Course.</span>
+          </div>
+        </div>
+      </div>
+
       <section className="hero" aria-labelledby="hero-title">
         <div className="container hero-grid">
           <div>

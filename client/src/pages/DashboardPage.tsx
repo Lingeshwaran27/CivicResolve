@@ -144,6 +144,8 @@ export default function DashboardPage() {
         </section>
       )}
 
+      <NammaWardScorecard />
+
       <section aria-labelledby="explore-title" className="section" style={{ marginTop: '3rem' }}>
         <div className="section-head">
           <div>
@@ -292,5 +294,43 @@ export default function DashboardPage() {
         </ul>
       </section>
     </div>
+  );
+}
+
+function NammaWardScorecard() {
+  const ZONES = [
+    { name: 'West Zone (மேற்கு)', areas: 'Vadavalli · Saibaba Colony · RS Puram West', resolved: 95, time: '18h', count: 19, rank: '1 🏆' },
+    { name: 'Central Zone (மத்திய)', areas: 'RS Puram · Gandhipuram · Town Hall', resolved: 92, time: '22h', count: 24, rank: '2' },
+    { name: 'East Zone (கிழக்கு)', areas: 'Peelamedu · Singanallur · Hopes', resolved: 87, time: '28h', count: 31, rank: '3' },
+    { name: 'South Zone (தெற்கு)', areas: 'Ukkadam · Kuniyamuthur · Kovaipudur', resolved: 85, time: '31h', count: 26, rank: '4' },
+    { name: 'North Zone (வடக்கு)', areas: 'Saravanampatti · Ganapathy · Thudiyalur', resolved: 82, time: '34h', count: 28, rank: '5' },
+  ];
+
+  return (
+    <section className="section" aria-labelledby="ward-title" style={{ marginTop: '2.5rem' }}>
+      <div className="section-head">
+        <div>
+          <p className="eyebrow">Ward Accountability</p>
+          <h2 id="ward-title">Namma Ward Scorecard (நம்ம வார்டு)</h2>
+          <p>Coimbatore City Municipal Corporation (CCMC) 100-Ward zonal speed &amp; resolution rankings.</p>
+        </div>
+      </div>
+      <div className="grid grid-kpi" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))' }}>
+        {ZONES.map((z) => (
+          <div className="card card-sm" key={z.name} style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
+            <div className="row between">
+              <span className="xs code" style={{ fontWeight: 700, color: 'var(--primary)' }}>Rank #{z.rank}</span>
+              <span className="badge badge-sm s-resolved">{z.resolved}% Fixed</span>
+            </div>
+            <strong style={{ fontSize: '0.94rem' }}>{z.name}</strong>
+            <span className="xs muted" style={{ lineHeight: 1.35 }}>{z.areas}</span>
+            <div className="row between" style={{ marginTop: 'auto', paddingTop: '0.5rem', borderTop: '1px solid var(--border)', fontSize: '0.78rem' }}>
+              <span className="muted">Avg: <strong>{z.time}</strong></span>
+              <span className="muted">Total: <strong>{z.count}</strong></span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }

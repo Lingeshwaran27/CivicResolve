@@ -2171,6 +2171,65 @@ tbody tr:last-child td {
   border: 1px solid var(--border);
 }
 
+/* ─────────────── Civic Live Bulletin ─────────────── */
+.civic-bulletin {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem 1.15rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  box-shadow: var(--shadow-xs);
+  font-size: 0.82rem;
+  overflow: hidden;
+}
+.bulletin-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-weight: 700;
+  color: var(--primary);
+  white-space: nowrap;
+  padding-right: 0.75rem;
+  border-right: 1px solid var(--border);
+}
+.live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #16a34a;
+  box-shadow: 0 0 0 3px rgb(22 163 74 / 20%);
+}
+.bulletin-ticker {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text-2);
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+.bulletin-ticker::-webkit-scrollbar {
+  display: none;
+}
+.bulletin-sep {
+  color: var(--border-strong);
+  font-weight: bold;
+}
+@media (max-width: 768px) {
+  .civic-bulletin {
+    border-radius: var(--r);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+  .bulletin-tag {
+    border-right: 0;
+    padding-right: 0;
+  }
+}
+
 /* Sticky dashboard toolbar */
 .toolbar-sticky {
   position: sticky;

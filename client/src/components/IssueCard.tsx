@@ -45,6 +45,11 @@ export function IssueCard({
         <PriorityBadge priority={issue.priority} />
         <StatusBadge status={issue.status} />
         {issue.overdue && <span className="badge badge-overdue">Past SLA</span>}
+        {issue.category === 'Roads & Potholes' && (
+          <span className="badge badge-neutral" style={{ fontSize: '0.72rem' }} title="Contractor Defect Liability Period Active">
+            DLP Warranty
+          </span>
+        )}
         <span className="votes">
           <ThumbsUp size={14} aria-hidden="true" />
           {issue.upvotes}

@@ -79,6 +79,7 @@ export default function ReportPage() {
   const [locationMsg, setLocationMsg] = useState<string | null>(null);
 
   const [errors, setErrors] = useState<FieldErrors>({});
+  const [ghostMode, setGhostMode] = useState(false);
   const [analysis, setAnalysis] = useState<AnalyzeResponse | null>(null);
   const [analyzedFor, setAnalyzedFor] = useState('');
   const [analyzing, setAnalyzing] = useState(false);
@@ -161,8 +162,8 @@ export default function ReportPage() {
         category: category || undefined,
         location: { address: address.trim(), lat: coords?.lat ?? null, lng: coords?.lng ?? null },
         image: image ?? undefined,
-        reporterName: name.trim() || undefined,
-        reporterContact: contact.trim() || undefined,
+        reporterName: ghostMode ? 'Anonymous Whistleblower 🛡️' : (name.trim() || undefined),
+        reporterContact: ghostMode ? undefined : (contact.trim() || undefined),
       });
       setCreated(issue);
       window.scrollTo({ top: 0 });
@@ -429,30 +430,60 @@ export default function ReportPage() {
                   <span>Only visible to officials — never shown publicly.</span>
                 </span>
               </legend>
-              <div className="form-grid">
-                <div className="field">
-                  <label htmlFor={`${formId}-name`}>Name</label>
+
+              <div style={{ padding: '0 0 1rem' }}>
+                <label className="row" style={{ cursor: 'pointer', userSelect: 'none', gap: '0.65rem' }}>
                   <input
-                    id={`${formId}-name`}
-                    className="input"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    maxLength={80}
-                    autoComplete="name"
+                    type="checkbox"
+                    checked={ghostMode}
+                    onChange={(e) => {
+                      setGhostMode(e.target.checked);
+                      if (e.target.checked) {
+                        setName('');
+                        setContact('');
+                      }
+                    }}
+                    style={{ width: 18, height: 18, accentColor: 'var(--primary)' }}
                   />
-                </div>
-                <div className="field">
-                  <label htmlFor={`${formId}-contact`}>Phone or email</label>
-                  <input
-                    id={`${formId}-contact`}
-                    className="input"
-                    value={contact}
-                    onChange={(e) => setContact(e.target.value)}
-                    maxLength={120}
-                    autoComplete="email"
-                  />
-                </div>
+                  <span>
+                    <strong style={{ display: 'block', fontSize: '0.93rem' }}>
+                      🛡️ Whistleblower / Ghost Mode (அநாமதேய புகார்)
+                    </strong>
+                    <span className="xs muted">
+                      Zero personal data saved. EXIF metadata scrubbed. Safe for reporting commercial encroachments, flex banner hazards, or lake dumping.
+                    </span>
+                  </span>
+                </label>
               </div>
+
+              {!ghostMode && (
+                <div className="form-grid">
+                  <div className="field">
+                    <label htmlFor={`${formId}-name`}>Name</label>
+                    <input
+                      id={`${formId}-name`}
+                      className="input"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      maxLength={80}
+                      autoComplete="name"
+                      placeholder="e.g. Lingeshwaran"
+                    />
+                  </div>
+                  <div className="field">
+                    <label htmlFor={`${formId}-contact`}>Phone or email</label>
+                    <input
+                      id={`${formId}-contact`}
+                      className="input"
+                      value={contact}
+                      onChange={(e) => setContact(e.target.value)}
+                      maxLength={120}
+                      autoComplete="email"
+                      placeholder="e.g. 98765 43210"
+                    />
+                  </div>
+                </div>
+              )}
             </fieldset>
 
             {submitError !== null && (
