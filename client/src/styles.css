@@ -1,66 +1,65 @@
 /* ═══════════════════════════════════════════════════════════════
-   CivicResolve — Government Portal Design System
-   Inspired by Indian Government portals (NIC / UMANG / MyGov)
+   CivicResolve — Design System
    ═══════════════════════════════════════════════════════════════ */
 :root {
   color-scheme: light;
 
-  /* Neutrals — warm white like govt portals */
-  --bg: #f4f6f9;
+  /* Neutrals */
+  --bg: #f5f8fd;
   --surface: #ffffff;
-  --surface-2: #f0f3f7;
-  --surface-3: #e8edf4;
-  --border: #d0d7e3;
-  --border-strong: #b8c3d6;
-  --text: #1a2535;
+  --surface-2: #f0f4fa;
+  --surface-3: #e8eef8;
+  --border: #e2e8f4;
+  --border-strong: #c8d4e8;
+  --text: #0f1c2e;
   --text-2: #2d3f5a;
-  --muted: #5a6a82;
+  --muted: #64748b;
 
-  /* Brand — India government blue (NIC standard) */
-  --primary: #003580;
-  --primary-hover: #002569;
-  --primary-50: #e8eef8;
-  --primary-100: #d0ddf2;
-  --primary-200: #a1bbdf;
-  --primary-700: #001f5c;
-  --sky: #1565c0;
+  /* Brand — azure blue */
+  --primary: #2458e6;
+  --primary-hover: #1a46c7;
+  --primary-50: #eef3fe;
+  --primary-100: #dce7fd;
+  --primary-200: #bad0fb;
+  --primary-700: #1535a0;
+  --sky: #0ea5e9;
   --on-primary: #ffffff;
-  --focus: #003580;
+  --focus: #2458e6;
 
   /* Semantic */
-  --critical: #c62828;
-  --critical-bg: #fce8e8;
-  --critical-bd: #f5c6c6;
-  --high: #bf5a00;
-  --high-bg: #fff3e0;
-  --high-bd: #ffd6a0;
-  --medium: #8a6000;
-  --medium-bg: #fff8e1;
-  --medium-bd: #ffe082;
-  --low: #1b5e20;
-  --low-bg: #e8f5e9;
-  --low-bd: #a5d6a7;
-  --neutral: #546e8a;
-  --neutral-bg: #ecf0f5;
-  --neutral-bd: #cfd8e5;
+  --critical: #dc2626;
+  --critical-bg: #fef2f2;
+  --critical-bd: #fecaca;
+  --high: #d97706;
+  --high-bg: #fffbeb;
+  --high-bd: #fed7aa;
+  --medium: #ca8a04;
+  --medium-bg: #fefce8;
+  --medium-bd: #fde68a;
+  --low: #16a34a;
+  --low-bg: #f0fdf4;
+  --low-bd: #bbf7d0;
+  --neutral: #6b7280;
+  --neutral-bg: #f3f4f6;
+  --neutral-bd: #e5e7eb;
 
-  /* Shape & depth — more formal, less rounded */
-  --r-xs: 3px;
-  --r-sm: 4px;
-  --r: 6px;
-  --r-lg: 8px;
-  --shadow-xs: 0 1px 2px rgb(0 20 60 / 6%);
-  --shadow-sm: 0 1px 3px rgb(0 20 60 / 7%), 0 2px 8px -2px rgb(0 20 60 / 8%);
-  --shadow: 0 2px 4px rgb(0 20 60 / 6%), 0 8px 24px -10px rgb(0 20 60 / 12%);
-  --shadow-lg: 0 4px 8px rgb(0 20 60 / 7%), 0 20px 48px -16px rgb(0 20 60 / 18%);
-  --ring: 0 0 0 3px rgb(0 53 128 / 20%);
+  /* Shape & depth */
+  --r-xs: 6px;
+  --r-sm: 10px;
+  --r: 14px;
+  --r-lg: 20px;
+  --shadow-xs: 0 1px 2px rgb(15 28 46 / 5%);
+  --shadow-sm: 0 1px 3px rgb(15 28 46 / 6%), 0 2px 8px -2px rgb(15 28 46 / 7%);
+  --shadow: 0 2px 6px rgb(15 28 46 / 5%), 0 8px 24px -10px rgb(15 28 46 / 10%);
+  --shadow-lg: 0 4px 8px rgb(15 28 46 / 6%), 0 20px 48px -16px rgb(15 28 46 / 15%);
+  --ring: 0 0 0 3px rgb(36 88 230 / 18%);
 
   --font:
     'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', 'Noto Sans', system-ui, -apple-system,
     'Segoe UI', 'Noto Sans Tamil', 'Noto Sans Devanagari', sans-serif;
   --mono: ui-monospace, 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
-  --header-h: 64px;
+  --header-h: 72px;
 }
 
 /* ─────────────── Base ─────────────── */
@@ -196,7 +195,7 @@ svg {
 }
 main {
   min-height: calc(100vh - var(--header-h) - 120px);
-  padding-block: 2.5rem 5rem;
+  padding-block: 2rem 4rem;
 }
 main:focus {
   outline: none;
@@ -296,26 +295,16 @@ main:focus {
 }
 
 /* ─────────────── Header ─────────────── */
-/* Top tricolor bar — Indian government portal convention */
-.site-header::before {
-  content: '';
-  display: block;
-  height: 4px;
-  background: linear-gradient(90deg, #ff9933 33.33%, #ffffff 33.33% 66.66%, #138808 66.66%);
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-}
 .site-header {
   position: sticky;
   top: 0;
   z-index: 600;
   height: var(--header-h);
-  background: var(--primary);
-  border-bottom: 3px solid #002060;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 25%);
-  padding-top: 4px;
+  background: rgb(255 255 255 / 85%);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-xs);
 }
 .site-header .container {
   height: 100%;
@@ -327,13 +316,13 @@ main:focus {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  color: #ffffff;
+  color: var(--text);
   font-weight: 750;
   font-size: 1.08rem;
   letter-spacing: -0.01em;
 }
 .brand:hover {
-  color: #e8f0ff;
+  color: var(--primary);
 }
 .brand-mark {
   width: 34px;
@@ -341,12 +330,12 @@ main:focus {
   border-radius: var(--r-sm);
   display: grid;
   place-items: center;
-  color: var(--primary);
-  background: #ffffff;
-  box-shadow: 0 2px 6px rgb(0 0 0 / 20%);
+  background: linear-gradient(140deg, #3b74ff 0%, var(--primary) 55%, var(--primary-700) 100%);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgb(36 88 230 / 30%);
 }
 .brand span b {
-  color: #90bbff;
+  color: var(--primary);
   font-weight: 750;
 }
 .nav {
@@ -362,7 +351,7 @@ main:focus {
   height: 36px;
   padding: 0 0.9rem;
   border-radius: var(--r-sm);
-  color: rgb(255 255 255 / 85%);
+  color: var(--text-2);
   font-weight: 560;
   font-size: 0.9rem;
   transition:
@@ -370,12 +359,12 @@ main:focus {
     background 0.15s;
 }
 .nav a:hover {
-  color: #ffffff;
-  background: rgb(255 255 255 / 12%);
+  color: var(--text);
+  background: var(--surface-2);
 }
 .nav a[aria-current='page'] {
-  color: #ffffff;
-  background: rgb(255 255 255 / 20%);
+  color: var(--primary);
+  background: var(--primary-50);
   font-weight: 650;
 }
 .header-actions {
@@ -384,20 +373,9 @@ main:focus {
   align-items: center;
   gap: 0.5rem;
 }
-/* Override primary button in header to be white/accent */
-.site-header .btn-primary {
-  background: #ffffff;
-  color: var(--primary);
-  border-color: transparent;
-  box-shadow: 0 1px 4px rgb(0 0 0 / 20%);
-}
-.site-header .btn-primary:hover:not(:disabled) {
-  background: #e8f0ff;
-  color: var(--primary-hover);
-}
 .btn.menu-btn {
   display: none;
-  color: #ffffff !important;
+  color: var(--text-2) !important;
 }
 @media (max-width: 880px) {
   .site-header .container {
@@ -411,8 +389,8 @@ main:focus {
     top: var(--header-h);
     left: 0;
     right: 0;
-    background: var(--primary);
-    border-bottom: 2px solid #002060;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
     box-shadow: var(--shadow);
     padding: 0.75rem 1rem 1rem;
     display: none;
@@ -442,10 +420,10 @@ main:focus {
 
 /* ─────────────── Footer ─────────────── */
 .site-footer {
-  border-top: 3px solid var(--primary);
-  background: #1a2535;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
   padding-block: 1.75rem;
-  color: rgb(255 255 255 / 65%);
+  color: var(--muted);
   font-size: 0.875rem;
 }
 .site-footer .container {
@@ -462,13 +440,13 @@ main:focus {
   flex-wrap: wrap;
 }
 .site-footer a {
-  color: rgb(255 255 255 / 70%);
+  color: var(--muted);
 }
 .site-footer a:hover {
-  color: #90bbff;
+  color: var(--primary);
 }
 .site-footer strong {
-  color: #ffffff !important;
+  color: var(--text) !important;
 }
 
 /* ─────────────── Cards ─────────────── */
@@ -1028,8 +1006,8 @@ a.chip:hover {
 /* ─────────────── Home ─────────────── */
 .hero {
   position: relative;
-  margin-top: -2.5rem;
-  padding-block: 4.5rem 4rem;
+  margin-top: -2rem;
+  padding-block: 1.5rem 3rem;
   overflow: hidden;
 }
 .hero::before {
@@ -1074,7 +1052,7 @@ a.chip:hover {
   font-size: 0.83rem;
   font-weight: 600;
   color: var(--text-2);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 .hero-badge .dot {
   display: grid;
@@ -1466,6 +1444,18 @@ a.chip:hover {
   font-size: 0.82rem;
   font-weight: 600;
   color: var(--muted);
+}
+.issue-card.priority-critical {
+  border-left: 4px solid var(--critical);
+}
+.issue-card.priority-high {
+  border-left: 4px solid var(--high);
+}
+.issue-card.priority-medium {
+  border-left: 4px solid var(--medium);
+}
+.issue-card.priority-low {
+  border-left: 4px solid var(--low);
 }
 
 /* ─────────────── AI panel ─────────────── */
@@ -2154,9 +2144,18 @@ tbody tr:last-child td {
   gap: 2px;
   background: var(--border);
 }
+.fixed-card .pair:has(> :only-child) {
+  grid-template-columns: 1fr;
+}
 .fixed-card .pair .photo-frame {
   border: 0;
   border-radius: 0;
+}
+.fixed-card .photo-frame img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
 }
 .fixed-card .body {
   padding: 1rem 1.2rem 1.2rem;
@@ -2170,4 +2169,71 @@ tbody tr:last-child td {
   object-fit: cover;
   border-radius: var(--r-sm);
   border: 1px solid var(--border);
+}
+
+/* Sticky dashboard toolbar */
+.toolbar-sticky {
+  position: sticky;
+  top: calc(var(--header-h) + 0.75rem);
+  z-index: 100;
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  background: rgb(255 255 255 / 90%);
+}
+
+/* Tab pills for Admin issue editor */
+.tab-pills {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.3rem;
+  background: var(--surface-2);
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+}
+.tab-pill {
+  flex: 1;
+  padding: 0.45rem 0.8rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted);
+  border: 0;
+  background: transparent;
+  border-radius: calc(var(--r-sm) - 2px);
+  cursor: pointer;
+  transition: all 0.15s var(--ease);
+}
+.tab-pill:hover {
+  color: var(--text);
+}
+.tab-pill.active {
+  background: var(--surface);
+  color: var(--primary);
+  font-weight: 700;
+  box-shadow: var(--shadow-xs);
+}
+
+/* ─────────────── Print styles (Grievance Receipt) ─────────────── */
+@media print {
+  .site-header,
+  .site-footer,
+  .header-actions,
+  .link-arrow,
+  .btn,
+  .tab-pills,
+  .textarea-tools,
+  .demo-presets,
+  .skip-link {
+    display: none !important;
+  }
+  body, main {
+    background: #ffffff !important;
+    color: #000000 !important;
+    padding: 0 !important;
+    min-height: auto !important;
+  }
+  .card {
+    box-shadow: none !important;
+    border: 1px solid #d0d7e3 !important;
+    page-break-inside: avoid;
+  }
 }

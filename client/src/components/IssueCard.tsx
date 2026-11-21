@@ -16,7 +16,7 @@ export function IssueCard({
 }) {
   const Heading = headingLevel;
   return (
-    <article className="issue-card">
+    <article className={`issue-card priority-${issue.priority}`}>
       {issue.hasImage && (
         <img
           className="issue-thumb"

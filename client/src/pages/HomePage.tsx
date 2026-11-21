@@ -91,7 +91,7 @@ export function HomePage() {
               AI triage powered by Google Gemini
             </span>
             <h1 id="hero-title">
-              Coimbatore Citizen <span className="accent">Grievance Portal</span>
+              Fix your city, <span className="accent">one report at a time.</span>
             </h1>
             <p className="lead">
               Report civic issues — potholes, garbage, broken streetlights, water leaks — in English, Tamil or Hindi.
@@ -99,11 +99,11 @@ export function HomePage() {
             </p>
             <div className="hero-ctas">
               <Link to="/report" className="btn btn-primary btn-lg">
-                File a Complaint
+                Report an issue
                 <ArrowRight size={18} aria-hidden="true" />
               </Link>
               <Link to="/track" className="btn btn-outline btn-lg">
-                Track Your Complaint
+                Track a complaint
               </Link>
             </div>
             <ul className="hero-points">
