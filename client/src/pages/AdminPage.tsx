@@ -90,6 +90,22 @@ function LoginForm({ onLogin }: { onLogin: () => void }) {
         </p>
       </div>
       <form className="card stack" onSubmit={submit}>
+        <div className="callout small" style={{ background: 'var(--primary-50)', border: '1px solid var(--primary-100)' }}>
+          <div className="row between" style={{ width: '100%', alignItems: 'center' }}>
+            <div>
+              <strong style={{ color: 'var(--primary-700)', display: 'block' }}>Jury / Demo Password</strong>
+              <span className="mono code xs">jewqhfbkwyf</span>
+            </div>
+            <button
+              type="button"
+              className="btn btn-outline btn-sm"
+              style={{ height: 32, fontSize: '0.78rem' }}
+              onClick={() => setPassword('jewqhfbkwyf')}
+            >
+              Auto-fill password
+            </button>
+          </div>
+        </div>
         <div className="field">
           <label htmlFor="admin-password">Password</label>
           <input
@@ -505,6 +521,7 @@ function IssueEditor({
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<unknown>(null);
   const [saved, setSaved] = useState(false);
+  const [tab, setTab] = useState<'update' | 'ai'>('update');
 
   const options = [issue.status, ...NEXT_STATUSES[issue.status]];
 
@@ -534,7 +551,7 @@ function IssueEditor({
 
   return (
     <div className="stack fade-in">
-      <form className="card card-sm stack" onSubmit={save} aria-labelledby="editor-title">
+      <div className="card card-sm stack" aria-labelledby="editor-title">
         <div>
           <div className="row between" style={{ marginBottom: '0.6rem' }}>
             <div className="row row-tight">
@@ -552,135 +569,161 @@ function IssueEditor({
             {issue.description}
           </p>
         </div>
-        {issue.ai?.translatedDescription && (
-          <p className="callout small">
-            <span>
-              <strong>Translation: </strong>
-              {issue.ai.translatedDescription}
-            </span>
-          </p>
-        )}
-        {issue.hasImage && (
-          <div className="detail-photo">
-            <img
-              src={api.imageUrl(issue.code)}
-              alt={`Evidence submitted by the citizen for ${issue.code}`}
-              loading="lazy"
-            />
-          </div>
-        )}
-        <ul className="meta-list" style={{ flexDirection: 'column', gap: '0.4rem' }}>
-          <li>
-            <MapPin size={15} aria-hidden="true" /> {issue.location.address}
-          </li>
-          <li>
-            <User size={15} aria-hidden="true" />
-            {issue.reporter
-              ? `${issue.reporter.name || 'Anonymous'} · ${issue.reporter.contact || 'no contact'}`
-              : 'Anonymous'}
-          </li>
-        </ul>
-        {issue.ai && (
-          <div className="callout small" style={{ flexDirection: 'column', gap: '0.45rem' }}>
-            <div className="row row-tight">
-              <ProviderBadge provider={issue.ai.provider} />
-              <span className="xs muted">
-                Impact {issue.ai.impactScore}/100 · {Math.round(issue.ai.confidence * 100)}%
-                confident
-              </span>
+
+        <div className="tab-pills" role="tablist">
+          <button
+            type="button"
+            role="tab"
+            aria-selected={tab === 'update'}
+            className={`tab-pill ${tab === 'update' ? 'active' : ''}`}
+            onClick={() => setTab('update')}
+          >
+            Update status
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={tab === 'ai'}
+            className={`tab-pill ${tab === 'ai' ? 'active' : ''}`}
+            onClick={() => setTab('ai')}
+          >
+            AI insights {issue.ai ? `· ${issue.ai.impactScore}/100` : ''}
+          </button>
+        </div>
+
+        {tab === 'update' ? (
+          <form className="stack" onSubmit={save}>
+            <div className="form-grid" style={{ gap: '1rem' }}>
+              <div className="field">
+                <label htmlFor="e-status">Status</label>
+                <select
+                  id="e-status"
+                  className="select"
+                  value={status}
+                  onChange={(e) => setStatus(e.target.value as Status)}
+                >
+                  {options.map((s) => (
+                    <option key={s} value={s}>
+                      {STATUS_LABEL[s]}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="field">
+                <label htmlFor="e-priority">Priority</label>
+                <select
+                  id="e-priority"
+                  className="select"
+                  value={priority}
+                  onChange={(e) => setPriority(e.target.value as Priority)}
+                >
+                  {(['critical', 'high', 'medium', 'low'] as Priority[]).map((p) => (
+                    <option key={p} value={p}>
+                      {PRIORITY_LABEL[p]}
+                      {issue.ai?.priority === p ? ' (AI)' : ''}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
-            <span>{issue.ai.reasoning}</span>
+            <div className="field">
+              <label htmlFor="e-dept">Department</label>
+              <select
+                id="e-dept"
+                className="select"
+                value={department}
+                onChange={(e) => setDepartment(e.target.value)}
+              >
+                {departments.map((d) => (
+                  <option key={d.id} value={d.id}>
+                    {d.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="field">
+              <label htmlFor="e-category">Category</label>
+              <select
+                id="e-category"
+                className="select"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                {categories.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="field">
+              <label htmlFor="e-note">
+                Note to citizen <span className="label-opt">(shown on the timeline)</span>
+              </label>
+              <textarea
+                id="e-note"
+                className="textarea"
+                style={{ minHeight: 88 }}
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
+                maxLength={500}
+                placeholder="e.g. Crew dispatched, repair scheduled for tomorrow."
+              />
+            </div>
+            {error !== null && <ErrorAlert error={error} />}
+            <p aria-live="polite" className={saved ? 'alert alert-success' : 'sr-only'}>
+              {saved && <CircleCheck size={16} aria-hidden="true" />}
+              {saved ? 'Saved — the citizen can see this update.' : ''}
+            </p>
+            <button type="submit" className="btn btn-primary btn-block" disabled={busy}>
+              {busy ? <Spinner label="Saving…" /> : 'Save update'}
+            </button>
+          </form>
+        ) : (
+          <div className="stack" style={{ gap: '1rem' }}>
+            {issue.ai?.translatedDescription && (
+              <p className="callout small">
+                <span>
+                  <strong>Translation: </strong>
+                  {issue.ai.translatedDescription}
+                </span>
+              </p>
+            )}
+            {issue.hasImage && (
+              <div className="detail-photo">
+                <img
+                  src={api.imageUrl(issue.code)}
+                  alt={`Evidence submitted by the citizen for ${issue.code}`}
+                  loading="lazy"
+                />
+              </div>
+            )}
+            <ul className="meta-list" style={{ flexDirection: 'column', gap: '0.4rem' }}>
+              <li>
+                <MapPin size={15} aria-hidden="true" /> {issue.location.address}
+              </li>
+              <li>
+                <User size={15} aria-hidden="true" />
+                {issue.reporter
+                  ? `${issue.reporter.name || 'Anonymous'} · ${issue.reporter.contact || 'no contact'}`
+                  : 'Anonymous'}
+              </li>
+            </ul>
+            {issue.ai && (
+              <div className="callout small" style={{ flexDirection: 'column', gap: '0.45rem' }}>
+                <div className="row row-tight">
+                  <ProviderBadge provider={issue.ai.provider} />
+                  <span className="xs muted">
+                    Impact {issue.ai.impactScore}/100 · {Math.round(issue.ai.confidence * 100)}%
+                    confident
+                  </span>
+                </div>
+                <span>{issue.ai.reasoning}</span>
+              </div>
+            )}
           </div>
         )}
-
-        <hr className="divider" style={{ margin: '0.25rem 0' }} />
-
-        <div className="form-grid" style={{ gap: '1rem' }}>
-          <div className="field">
-            <label htmlFor="e-status">Status</label>
-            <select
-              id="e-status"
-              className="select"
-              value={status}
-              onChange={(e) => setStatus(e.target.value as Status)}
-            >
-              {options.map((s) => (
-                <option key={s} value={s}>
-                  {STATUS_LABEL[s]}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="field">
-            <label htmlFor="e-priority">Priority</label>
-            <select
-              id="e-priority"
-              className="select"
-              value={priority}
-              onChange={(e) => setPriority(e.target.value as Priority)}
-            >
-              {(['critical', 'high', 'medium', 'low'] as Priority[]).map((p) => (
-                <option key={p} value={p}>
-                  {PRIORITY_LABEL[p]}
-                  {issue.ai?.priority === p ? ' (AI)' : ''}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-        <div className="field">
-          <label htmlFor="e-dept">Department</label>
-          <select
-            id="e-dept"
-            className="select"
-            value={department}
-            onChange={(e) => setDepartment(e.target.value)}
-          >
-            {departments.map((d) => (
-              <option key={d.id} value={d.id}>
-                {d.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="field">
-          <label htmlFor="e-category">Category</label>
-          <select
-            id="e-category"
-            className="select"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            {categories.map((c) => (
-              <option key={c} value={c}>
-                {c}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="field">
-          <label htmlFor="e-note">
-            Note to citizen <span className="label-opt">(shown on the timeline)</span>
-          </label>
-          <textarea
-            id="e-note"
-            className="textarea"
-            style={{ minHeight: 88 }}
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-            maxLength={500}
-            placeholder="e.g. Crew dispatched, repair scheduled for tomorrow."
-          />
-        </div>
-        {error !== null && <ErrorAlert error={error} />}
-        <p aria-live="polite" className={saved ? 'alert alert-success' : 'sr-only'}>
-          {saved && <CircleCheck size={16} aria-hidden="true" />}
-          {saved ? 'Saved — the citizen can see this update.' : ''}
-        </p>
-        <button type="submit" className="btn btn-primary btn-block" disabled={busy}>
-          {busy ? <Spinner label="Saving…" /> : 'Save update'}
-        </button>
-      </form>
+      </div>
       <section className="card card-sm" aria-labelledby="history-title">
         <h3 id="history-title" style={{ marginBottom: '1rem' }}>
           History
