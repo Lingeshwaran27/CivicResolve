@@ -1,6 +1,7 @@
 import {
   CircleCheck,
   Clock,
+  Download,
   Hourglass,
   Inbox,
   LayoutGrid,
@@ -90,6 +91,32 @@ export default function DashboardPage() {
     [status, priority, category, q, sort],
   );
 
+  function exportCsv() {
+    if (!issues.data?.items.length) return;
+    const headers = ['Code', 'Title', 'Category', 'Priority', 'Status', 'Department', 'Address', 'Created', 'Upvotes'];
+    const rows = issues.data.items.map((i) => [
+      i.code,
+      `"${i.title.replace(/"/g, '""')}"`,
+      `"${i.category}"`,
+      i.priority,
+      i.status,
+      `"${i.department}"`,
+      `"${(i.location.address || '').replace(/"/g, '""')}"`,
+      i.createdAt,
+      i.upvotes,
+    ]);
+    const csvContent = [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `civicresolve-complaints-${new Date().toISOString().slice(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }
+
   return (
     <div className="container">
       <header className="page-head">
@@ -130,6 +157,14 @@ export default function DashboardPage() {
           <div className="row row-tight" role="group" aria-label="View">
             <button
               type="button"
+              className="btn btn-sm btn-outline"
+              onClick={exportCsv}
+              title="Export filtered complaints as CSV open data"
+            >
+              <Download size={14} aria-hidden="true" /> Export CSV
+            </button>
+            <button
+              type="button"
               className={`btn btn-sm ${view === 'map' ? 'btn-soft' : 'btn-ghost'}`}
               aria-pressed={view === 'map'}
               onClick={() => setView('map')}
@@ -147,7 +182,7 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        <div className="card card-sm" style={{ marginBottom: '1.25rem' }}>
+        <div className="card card-sm toolbar-sticky" style={{ marginBottom: '1.25rem' }}>
           <div className="toolbar" role="group" aria-label="Filters">
             <div className="input-icon">
               <Search size={16} aria-hidden="true" />

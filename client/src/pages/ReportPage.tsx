@@ -9,7 +9,9 @@ import {
   LocateFixed,
   Map as MapIcon,
   MapPin,
+  Printer,
   Send,
+  Share2,
   Sparkles,
   Tags,
   ThumbsUp,
@@ -228,6 +230,51 @@ export default function ReportPage() {
                   <span>Be specific — what, how big, and who is affected.</span>
                 </span>
               </legend>
+
+              <div className="demo-presets" style={{ marginBottom: '1.1rem' }}>
+                <span className="xs muted" style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', marginBottom: '0.45rem', fontWeight: 650 }}>
+                  <Sparkles size={13} color="var(--primary)" aria-hidden="true" />
+                  Jury / Demo quick-fill presets:
+                </span>
+                <div className="row row-tight">
+                  <button
+                    type="button"
+                    className="chip small"
+                    onClick={() => {
+                      setDescription('ஆர்.எஸ்.புரம் மெயின் ரோட்டில் பெரிய குழிகள் உள்ளன, வாகனங்கள் விபத்துக்குள்ளாகின்றன. மழை பெய்தால் தண்ணீர் தேங்கி விபத்து அபாயம் அதிகம்.');
+                      setAddress('DB Road, RS Puram, Coimbatore');
+                      setTitle('Road pothole hazard on DB Road');
+                      setCategory('Roads & Potholes');
+                    }}
+                  >
+                    🇮🇳 தமிழ் (Pothole hazard)
+                  </button>
+                  <button
+                    type="button"
+                    className="chip small"
+                    onClick={() => {
+                      setDescription('गांधीपुरम क्रॉस-कट रोड पर स्ट्रीट लाइट पिछले 4 दिनों से पूरी तरह बंद है, रात में अंधेरे के कारण महिलाओं और राहगीरों को भारी परेशानी हो रही है।');
+                      setAddress('Cross Cut Road, Gandhipuram, Coimbatore');
+                      setTitle('Streetlight outage on Cross Cut Road');
+                      setCategory('Streetlights & Electricity');
+                    }}
+                  >
+                    🇮🇳 हिन्दी (Streetlight blackout)
+                  </button>
+                  <button
+                    type="button"
+                    className="chip small"
+                    onClick={() => {
+                      setDescription('Severe underground drinking water pipe burst flooding Lakshmi Mills junction. Thousands of liters of water wasting on the road and causing severe traffic jams.');
+                      setAddress('Avinashi Road, Lakshmi Mills Junction, Coimbatore');
+                      setTitle('Major water main rupture at Lakshmi Mills');
+                      setCategory('Water Supply & Leakage');
+                    }}
+                  >
+                    🇬🇧 English (Water main burst)
+                  </button>
+                </div>
+              </div>
 
               <div className="field">
                 <label htmlFor={`${formId}-description`}>Description</label>
@@ -637,7 +684,23 @@ function SubmittedView({
           <Link className="btn btn-primary" to={`/track/${issue.code}`}>
             Track this complaint <ArrowRight size={16} aria-hidden="true" />
           </Link>
-          <a className="btn btn-outline" href="/report">
+          <a
+            className="btn btn-outline"
+            style={{ color: '#16a34a', borderColor: '#bbf7d0' }}
+            href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`Help fix our neighborhood! Track civic issue ${issue.code} (${issue.title}) on CivicResolve: ${typeof window !== 'undefined' ? window.location.origin : ''}/track/${issue.code}`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Share2 size={15} aria-hidden="true" /> Share on WhatsApp
+          </a>
+          <button
+            type="button"
+            className="btn btn-outline"
+            onClick={() => window.print()}
+          >
+            <Printer size={15} aria-hidden="true" /> Print receipt
+          </button>
+          <a className="btn btn-ghost" href="/report">
             Report another issue
           </a>
         </div>

@@ -6,7 +6,9 @@ import {
   CircleAlert,
   Copy,
   MapPin,
+  Printer,
   Search,
+  Share2,
   Star,
   ThumbsUp,
 } from 'lucide-react';
@@ -163,21 +165,42 @@ function IssueDetail({ code }: { code: string }) {
               </ul>
             </div>
           </div>
-          <button
-            type="button"
-            className="btn btn-outline btn-sm mono"
-            onClick={() => {
-              void navigator.clipboard?.writeText(issue.code).then(() => setCopied(true));
-            }}
-            aria-label={`Copy tracking code ${issue.code}`}
-          >
-            {copied ? (
-              <Check size={14} aria-hidden="true" />
-            ) : (
-              <Copy size={14} aria-hidden="true" />
-            )}
-            {issue.code}
-          </button>
+          <div className="row row-tight">
+            <button
+              type="button"
+              className="btn btn-outline btn-sm mono"
+              onClick={() => {
+                void navigator.clipboard?.writeText(issue.code).then(() => setCopied(true));
+              }}
+              aria-label={`Copy tracking code ${issue.code}`}
+              title="Copy tracking code"
+            >
+              {copied ? (
+                <Check size={14} aria-hidden="true" />
+              ) : (
+                <Copy size={14} aria-hidden="true" />
+              )}
+              {issue.code}
+            </button>
+            <a
+              className="btn btn-outline btn-sm"
+              style={{ color: '#16a34a', borderColor: '#bbf7d0' }}
+              href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`Help fix our street! Track & upvote complaint ${issue.code} (${issue.title}) on CivicResolve: ${typeof window !== 'undefined' ? window.location.href : ''}`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Share on WhatsApp for community upvotes"
+            >
+              <Share2 size={14} aria-hidden="true" /> WhatsApp
+            </a>
+            <button
+              type="button"
+              className="btn btn-outline btn-sm"
+              onClick={() => window.print()}
+              title="Print official grievance acknowledgement"
+            >
+              <Printer size={14} aria-hidden="true" /> Print
+            </button>
+          </div>
         </div>
         <hr className="divider" />
         <StatusStepper status={issue.status} history={issue.history} />
