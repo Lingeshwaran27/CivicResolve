@@ -34,6 +34,13 @@ const FEATURED_CATEGORIES = [
   'Stray Animals',
 ];
 
+const CIVIC_BULLETINS = [
+  '💧 Siruvani Water: West Zone (Wards 21–35, RS Puram & Vadavalli) supply cycle active today 6:00 AM – 11:30 AM.',
+  '⚡ TANGEDCO: Sub-station maintenance power shutdown in Peelamedu & Hope College tomorrow 9 AM – 2 PM.',
+  '🚧 Avinashi Expressway: Elevated corridor beam work near Lakshmi Mills; light vehicles advised to use Race Course.',
+  '🧹 Clean Coimbatore: Valankulam lake bund desilting and plastics clearance drive scheduled this Saturday.',
+];
+
 const STEPS: { Icon: LucideIcon; title: string; body: string }[] = [
   {
     Icon: MessageSquareText,
@@ -88,12 +95,17 @@ export function HomePage() {
               <span className="live-dot" aria-hidden="true" />
               <span>Coimbatore Live Updates</span>
             </div>
-            <div className="bulletin-ticker">
-              <span>💧 <strong>Siruvani Water:</strong> West Zone (Wards 21–35, RS Puram &amp; Vadavalli) supply cycle active today 6:00 AM – 11:30 AM.</span>
-              <span className="bulletin-sep">·</span>
-              <span>⚡ <strong>TANGEDCO:</strong> Sub-station maintenance power shutdown in Peelamedu &amp; Hope College tomorrow 9 AM – 2 PM.</span>
-              <span className="bulletin-sep">·</span>
-              <span>🚧 <strong>Avinashi Expressway:</strong> Beam erection near Lakshmi Mills; light vehicles advised to use Race Course.</span>
+            <div className="bulletin-marquee" tabIndex={0} aria-label="Live news scroll, hover to pause">
+              <div className="bulletin-track">
+                {[...CIVIC_BULLETINS, ...CIVIC_BULLETINS].map((text, idx) => (
+                  <span className="bulletin-item" key={idx}>
+                    <span>{text}</span>
+                    <span className="bulletin-sep" aria-hidden="true">
+                      ·
+                    </span>
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
